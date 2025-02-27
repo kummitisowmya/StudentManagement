@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Course Materials{% endblock %}
+
+{% block content %}
+<h2>Course Materials</h2>
+
+<ul>
+    {% for material in materials %}
+        <li>
+            <strong>{{ material.title }}</strong>
+            <a href="{{ material.file.url }}" download>Download</a>
+        </li>
+    {% empty %}
+        <p>No materials available for this course.</p>
+    {% endfor %}
+</ul>
+
+<p><a href="{% url 'student_dashboard' %}">Back to Dashboard</a></p>
+{% endblock %}

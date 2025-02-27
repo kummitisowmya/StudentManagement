@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Admin Dashboard - Course Allotment</h2>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}success{% else %}error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Assign Course</button>
+    </form>
+    <div class="course-list">
+        <h3>Assigned Courses</h3>
+        <table>
+            <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Action</th>
+            </tr>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.student.username }}</td>
+                <td>{{ course.course.name }}</td>
+                <td>
+                    <a href="{% url 'remove_course' course.id %}" class="delete-btn">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
