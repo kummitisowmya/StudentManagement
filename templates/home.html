@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Student Management{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome to the Student Management System</h2>
+    <p>Manage Students And Courses</p>
+
+    <!-- Links for Students -->
+    <a href="{% url 'register' %}" class="btn btn-primary">Register as Student</a>
+    <a href="{% url 'login' %}" class="btn btn-secondary">Student Login</a>
+
+    <!-- Show Admin Dashboard Link If User is a Superuser -->
+    {% if user.is_authenticated and user.is_superuser %}
+        <p><a href="{% url 'admin_dashboard' %}" class="btn btn-success">Go to Admin Dashboard</a></p>
+    {% endif %}
+</div>
+{% endblock %}
